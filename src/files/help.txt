@@ -1,0 +1,22 @@
+🎵 Available commands:
+
+⏯️ play - Start playing the current song
+⏸️ pause - Pause the currently playing song
+⏭️ next - Play the next song in the playlist
+⏮️ previous - Play the previous song in the playlist
+🔀 shuffle - Play songs in random order
+🔁 loop - Toggle looping mode (one song or whole playlist)
+⏩ seekForward - Seek forward in the current song
+⏪ seekBackward - Seek backward in the current song
+🎶 currentSong - Show info about the currently playing song
+📃 playlist - Display all songs in the current playlist
+➕ addSong - Add a new song to the playlist
+🚫 removeSong - Remove a song from the playlist
+⭐ favorite - Mark a song as favorite
+🔎 search - Search a song by name
+🎼 normalMode - switch back to normal play mode
+🎚️ playbackSpeed - Change the playback speed
+📈 stats - Show your listening statistics
+🆘 help - Display this help menu
+❌ exit - Exit the music player
+
