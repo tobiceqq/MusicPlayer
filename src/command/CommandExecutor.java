@@ -22,7 +22,7 @@ public class CommandExecutor {
      */
     private void registerCommands() {
 
-        commandMap.put("play" , new Play());
+       /** commandMap.put("play" , new Play());
         commandMap.put("1" , new Play());
 
         commandMap.put();
@@ -71,7 +71,7 @@ public class CommandExecutor {
         commandMap.put();
 
         commandMap.put();
-        commandMap.put();
+        commandMap.put(); **/
     }
 
     /**

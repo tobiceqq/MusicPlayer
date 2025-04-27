@@ -1,4 +1,6 @@
 package tests;
 
-public class CommandExecutorTest {
+import static org.junit.jupiter.api.Assertions.*;
+class CommandExecutorTest {
+  
 }

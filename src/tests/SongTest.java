@@ -1,4 +1,6 @@
 package tests;
 
-public class SongTest {
+import static org.junit.jupiter.api.Assertions.*;
+class SongTest {
+  
 }
