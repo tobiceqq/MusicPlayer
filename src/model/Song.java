@@ -5,12 +5,14 @@ package model;
  */
 public class Song {
     private String title;
+    private String artist;
     private int durationInSeconds;
     private int playCount;
     private boolean favorite;
 
-    public Song(String title, int durationInSeconds) {
+    public Song(String title, String artist, int durationInSeconds) {
         this.title = title;
+        this.artist = artist;
         this.durationInSeconds = durationInSeconds;
         this.playCount = 0;
         this.favorite = false;

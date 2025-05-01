@@ -6,5 +6,19 @@ package model;
  */
 public enum PlayMode {
 
-    NORMAL, SHUFFLE, LOOP_ONE, LOOP_ALL, FAVORITES
+    NORMAL("Normal play order"),
+    SHUFFLE("Normal play order"),
+    LOOP_ONE("Repeat the current song"),
+    LOOP_ALL("Repeat entire playlist"),
+    FAVORITES("Play only favorite songs");
+
+    private final String description;
+
+    PlayMode(String description) {
+        this.description = description;
+    }
+
+    public String getDescription() {
+        return description;
+    }
 }
