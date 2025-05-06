@@ -7,8 +7,11 @@ import java.util.List;
  * Represents a playlist containing songs.
  */
 public class Playlist {
+
     private String name;
     private List<Song> songs;
+    private PlayMode playMode = PlayMode.NORMAL;
+    private int currentSongIndex = 0;
 
     public Playlist(String name) {
         this.name = name;
@@ -62,6 +65,28 @@ public class Playlist {
         return name;
     }
 
+    public PlayMode getPlayMode() {
+        return playMode;
+    }
+
+    public void setPlayMode(PlayMode playMode) {
+        this.playMode = playMode;
+    }
+
+    public int getCurrentSongIndex() {
+        return currentSongIndex;
+    }
+
+    public void setCurrentSongIndex(int index) {
+        if (index >= 0 && index < songs.size()) {
+            this.currentSongIndex = index;
+        }
+    }
+
+    public boolean isEmpty() {
+        return songs == null || songs.isEmpty();
+    }
+
     @Override
     public String toString() {
         if (songs.isEmpty()) {
@@ -74,4 +99,5 @@ public class Playlist {
         }
         return sb.toString();
     }
+
 }
