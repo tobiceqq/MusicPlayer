@@ -66,6 +66,37 @@ public class AudioPlayer {
         return "⚠\uFE0F Nothing was playing.";
     }
 
+    /**
+     * Rewinds the current audio by a given number of seconds.
+     *
+     * @param seconds how many seconds to rewind
+     * @return status message
+     */
+    public String seekBackward(long seconds) {
+        if (clip == null || !clip.isOpen()) {
+            return "❌ No audio loaded.";
+        }
+
+        long currentPosition = clip.getMicrosecondPosition();
+        long newPosition = Math.max(0 , currentPosition - seconds * 1_000_000);
+        clip.setMicrosecondPosition(newPosition);
+
+        return "⏪ Rewound " + seconds + " seconds.";
+    }
+
+    public String seekForward(long seconds) {
+        if (clip == null || !clip.isOpen()) {
+            return "❌ No audio loaded.";
+        }
+
+        long currentPosition = clip.getMicrosecondPosition();
+        long clipLength = clip.getMicrosecondLength();
+        long newPosition = Math.min(clipLength , currentPosition + seconds * 1_000_000);
+        clip.setMicrosecondPosition(newPosition);
+
+        return "⏩ Forwarded " + seconds + " seconds.";
+    }
+
     private double playbackSpeed = 1.0;
     private boolean isPlaying;
     private Thread currentPlaybackThread;
