@@ -3,6 +3,9 @@ package command;
 import audio.AudioPlayer;
 import playlist.PlaylistManager;
 
+/**
+ * Fast-forwards the current song by a given number of seconds.
+ */
 public class SeekForward implements Command {
 
     private final PlaylistManager playlistManager;

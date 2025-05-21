@@ -3,6 +3,9 @@ package command;
 import audio.AudioPlayer;
 import playlist.PlaylistManager;
 
+/**
+ * Rewinds the currently playing song by a set number of seconds.
+ */
 public class SeekBackward implements Command {
 
     private final PlaylistManager playlistManager;

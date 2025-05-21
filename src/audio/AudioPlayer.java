@@ -84,6 +84,12 @@ public class AudioPlayer {
         return "⏪ Rewound " + seconds + " seconds.";
     }
 
+    /**
+     * Fast-forwards the current audio by a given number of seconds.
+     *
+     * @param seconds how many seconds to forward
+     * @return status message
+     */
     public String seekForward(long seconds) {
         if (clip == null || !clip.isOpen()) {
             return "❌ No audio loaded.";
