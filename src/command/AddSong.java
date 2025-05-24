@@ -2,6 +2,7 @@ package command;
 
 import playlist.PlaylistManager;
 import utils.InputValidator;
+import model.Song;
 
 import java.util.Scanner;
 
@@ -51,7 +52,7 @@ public class AddSong implements Command {
         }
 
         int duration = Integer.parseInt(durationInput);
-        Song newSong = new Song(title, artist, duration);
+        Song newSong = new Song(title, artist, duration , "");   // DODELAT
         playlistManager.getCurrentPlaylist().addSong(newSong);
 
         return "✅ Song added: " + newSong;

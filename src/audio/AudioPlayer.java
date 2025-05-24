@@ -1,9 +1,15 @@
 package audio;
 
+import model.PlayMode;
+import playlist.PlaylistManager;
+
 import javax.sound.sampled.*;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
+import java.util.Collections;
+
+import model.Playlist;
 
 public class AudioPlayer {
 
@@ -112,6 +118,18 @@ public class AudioPlayer {
             return "❌ Invalid speed.";
         this.playbackSpeed = speed;
         return "⏩ Playback speed set to " + speed + "x.";
+    }
+
+    public String shuffle(Playlist playlist) {
+        if (playlist.getSongs().isEmpty()) {
+            return "\uD83D\uDCED Cannot shuffle an empty playlist.";
+        }
+
+        Collections.shuffle(playlist.getSongs());
+        playlist.setCurrentSongIndex(0);
+        playlist.setPlayMode(PlayMode.SHUFFLE);
+
+        return "\uD83D\uDD00 Playlist has been shuffled.";
     }
 
     public double getPlaybackSpeed() {

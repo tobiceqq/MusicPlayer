@@ -1,4 +1,71 @@
 package command;
 
-public class Stats {
+import model.Song;
+import playlist.PlaylistManager;
+
+import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collectors;
+
+public class Stats implements Command {
+
+    private final PlaylistManager playlistManager;
+
+    public Stats(PlaylistManager playlistManager) {
+        this.playlistManager = playlistManager;
+    }
+
+    /**
+     * Displays statistics for the selected playlist
+     *
+     * @return formated stats or error
+     */
+    public String execute() {
+        if (!playlistManager.hasCurrentPlaylist()) {
+            return "❌ No playlist selected.";
+        }
+
+        List<Song> songs = playlistManager.getCurrentPlaylist().getSongs();
+        if (songs.isEmpty()) {
+            return "\uD83D\uDCED Playlist is empty.";
+        }
+
+        int totalSongs = songs.size();
+        int totalDuration = songs.stream().mapToInt(Song::getDurationInSeconds).sum();
+        int favoriteCount = (int) songs.stream().filter(Song::isFavorite).count();
+        Song mostPlayed = songs.stream().max(Comparator.comparingInt(Song::getPlayCount)).orElse(null);
+
+        List<Song> top3 = songs.stream().sorted(Comparator.comparingInt(Song::getPlayCount).reversed()).limit(3).collect(Collectors.toList());
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("\uD83D\uDCCA Playlist stats\n");
+        sb.append("____________________________________\n");
+        sb.append("Total songs      : ").append(totalSongs).append("\n");
+        sb.append("Total duration      : ").append(totalDuration / 60).append(":").append(String.format("%02d" , totalDuration % 60)).append("\n");
+        sb.append("Favorites      : ").append(favoriteCount).append(" ❤\uFE0F\n");
+
+        if (mostPlayed != null) {
+            sb.append("Most played      : ").append(mostPlayed.getTitle()).append(" - ").append(mostPlayed.getArtist()).append(" (").append(mostPlayed.getPlayCount()).append("x)\n");
+
+        }
+
+        sb.append("____________________________________\n");
+        sb.append("Top 3 most played:\n");
+        for (int i = 0; i < top3.size(); i++) {
+            Song s = top3.get(i);
+            sb.append(String.format("%d. %s – %s (%dx)\n" , i + 1 , s.getTitle(), s.getArtist() , s.getPlayCount()));
+        }
+
+        return sb.toString().strip();
+    }
+
+    /**
+     * Indicates whether this command should cause the program to exit.
+     *
+     * @return false, as this commands does not terminate the program
+     */
+    @Override
+    public boolean exit() {
+        return false;
+    }
 }

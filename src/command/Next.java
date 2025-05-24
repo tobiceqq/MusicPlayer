@@ -1,5 +1,6 @@
 package command;
 
+import audio.AudioPlayer;
 import model.PlayMode;
 import model.Song;
 import playlist.PlaylistManager;
@@ -13,10 +14,12 @@ import java.util.Random;
 public class Next implements Command {
 
     private final PlaylistManager playlistManager;
+    private final AudioPlayer audioPlayer;
     private final Random random;
 
-    public Next(PlaylistManager playlistManager) {
+    public Next(PlaylistManager playlistManager, AudioPlayer audioPlayer) {
         this.playlistManager = playlistManager;
+        this.audioPlayer = audioPlayer;
         this.random = new Random();
     }
 

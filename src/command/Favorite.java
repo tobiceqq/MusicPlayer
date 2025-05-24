@@ -1,6 +1,7 @@
 package command;
 
 import playlist.PlaylistManager;
+import model.Song;
 
 import java.util.Scanner;
 

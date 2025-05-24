@@ -15,7 +15,6 @@
 ⭐ favorite - Mark a song as favorite
 🔎 search - Search a song by name
 🎼 normalMode - switch back to normal play mode
-🎚️ playbackSpeed - Change the playback speed
 📈 stats - Show your listening statistics
 🆘 help - Display this help menu
 ❌ exit - Exit the music player

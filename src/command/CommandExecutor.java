@@ -1,9 +1,12 @@
 package command;
 
 import exceptions.InvalidCommandException;
+import audio.AudioPlayer;
+import playlist.PlaylistManager;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Scanner;
 
 /**
  * Executes commands based on user input.
@@ -11,9 +14,15 @@ import java.util.Map;
 public class CommandExecutor {
 
     private final Map<String, Command> commandMap;
+    private final PlaylistManager playlistManager;
+    private final AudioPlayer audioPlayer;
+    private final Scanner scanner;
 
-    public CommandExecutor() {
-        commandMap = new HashMap<>();
+    public CommandExecutor(Map<String, Command> commandMap, PlaylistManager playlistManager, AudioPlayer audioPlayer, Scanner scanner) {
+        this.commandMap = new HashMap<>();
+        this.playlistManager = playlistManager;
+        this.audioPlayer = audioPlayer;
+        this.scanner = scanner;
         registerCommands();
     }
 
@@ -22,56 +31,58 @@ public class CommandExecutor {
      */
     private void registerCommands() {
 
-       /** commandMap.put("play" , new Play());
-        commandMap.put("1" , new Play());
+        commandMap.put("play", new Play(playlistManager, audioPlayer));
+        commandMap.put("1", new Play(playlistManager, audioPlayer));
 
-        commandMap.put();
-        commandMap.put();
+        commandMap.put("pause", new Pause(playlistManager, audioPlayer));
+        commandMap.put("2", new Pause(playlistManager, audioPlayer));
 
-        commandMap.put();
-        commandMap.put();
+        commandMap.put("next", new Next(playlistManager, audioPlayer));
+        commandMap.put("3", new Next(playlistManager, audioPlayer));
 
-        commandMap.put();
-        commandMap.put();
+        commandMap.put("previous", new Previous(playlistManager, audioPlayer));
+        commandMap.put("4", new Previous(playlistManager, audioPlayer));
 
-        commandMap.put();
-        commandMap.put();
+        commandMap.put("addsong", new AddSong(playlistManager, scanner));
+        commandMap.put("5", new AddSong(playlistManager, scanner));
 
-        commandMap.put();
-        commandMap.put();
+        commandMap.put("removesong", new RemoveSong(playlistManager, scanner));
+        commandMap.put("6", new RemoveSong(playlistManager, scanner));
 
-        commandMap.put();
-        commandMap.put();
+        commandMap.put("search", new Search(playlistManager, scanner));
+        commandMap.put("7", new Search(playlistManager, scanner));
 
-        commandMap.put();
-        commandMap.put();
+        commandMap.put("shuffle", new Shuffle(playlistManager, audioPlayer));
+        commandMap.put("8", new Shuffle(playlistManager, audioPlayer));
 
-        commandMap.put();
-        commandMap.put();
+        commandMap.put("favorite", new Favorite(playlistManager, scanner));
+        commandMap.put("9", new Favorite(playlistManager, scanner));
 
-        commandMap.put();
-        commandMap.put();
+        commandMap.put("loop", new Loop(playlistManager, scanner));
+        commandMap.put("10", new Loop(playlistManager, scanner));
 
-        commandMap.put();
-        commandMap.put();
+        commandMap.put("normalmode", new NormalMode(playlistManager));
+        commandMap.put("11", new NormalMode(playlistManager));
 
-        commandMap.put();
-        commandMap.put();
+        commandMap.put("seekforward", new SeekForward(playlistManager , audioPlayer , 15l));
+        commandMap.put("12", new SeekForward(playlistManager , audioPlayer , 15l));
 
-        commandMap.put();
-        commandMap.put();
+        commandMap.put("seekbackward", new SeekBackward(playlistManager , audioPlayer , 15l));
+        commandMap.put("13", new SeekBackward(playlistManager , audioPlayer , 15l));
 
-        commandMap.put();
-        commandMap.put();
+        commandMap.put("showcurrentsong", new ShowCurrentSong(playlistManager));
+        commandMap.put("14", new ShowCurrentSong(playlistManager));
 
-        commandMap.put();
-        commandMap.put();
+        commandMap.put("stats", new Stats(playlistManager));
+        commandMap.put("15", new Stats(playlistManager));
 
-        commandMap.put();
-        commandMap.put();
+        commandMap.put("help", new Help());
+        commandMap.put("16", new Help());
 
-        commandMap.put();
-        commandMap.put(); **/
+        commandMap.put("exit", new Exit());
+        commandMap.put("17", new Exit());
+
+
     }
 
     /**
