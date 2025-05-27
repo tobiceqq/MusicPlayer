@@ -2,6 +2,7 @@ package command;
 
 import exceptions.InvalidCommandException;
 import audio.AudioPlayer;
+import model.Playlist;
 import playlist.PlaylistManager;
 
 import java.util.HashMap;
@@ -18,11 +19,11 @@ public class CommandExecutor {
     private final AudioPlayer audioPlayer;
     private final Scanner scanner;
 
-    public CommandExecutor(Map<String, Command> commandMap, PlaylistManager playlistManager, AudioPlayer audioPlayer, Scanner scanner) {
+    public CommandExecutor(PlaylistManager playlistManager, AudioPlayer audioPlayer) {
         this.commandMap = new HashMap<>();
         this.playlistManager = playlistManager;
         this.audioPlayer = audioPlayer;
-        this.scanner = scanner;
+        this.scanner = new Scanner(System.in);
         registerCommands();
     }
 
@@ -81,6 +82,9 @@ public class CommandExecutor {
 
         commandMap.put("exit", new Exit());
         commandMap.put("17", new Exit());
+
+        commandMap.put("select", new SelectPlaylist(playlistManager, scanner));
+        commandMap.put("18", new SelectPlaylist(playlistManager, scanner));
 
 
     }

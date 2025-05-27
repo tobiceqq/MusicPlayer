@@ -3,6 +3,7 @@ package playlist;
 import model.Playlist;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -11,6 +12,7 @@ import java.util.Map;
 public class PlaylistManager {
 
     private Map<String, Playlist> playlists;
+    private List<Playlist> playlists2;
     private Playlist currentPlaylist;
 
     public PlaylistManager() {
@@ -22,9 +24,10 @@ public class PlaylistManager {
      *
      * @param name the name of the new playlist
      */
-    public void createPlaylist(String name) {
-        playlists.put(name.toLowerCase(), new Playlist(name));
+    public void createPlaylist(String name, String artist) {
+        playlists.put(name.toLowerCase(), new Playlist(name, artist));
     }
+
 
     /**
      * Removes a playlist with the given name.
@@ -49,6 +52,17 @@ public class PlaylistManager {
         }
         return false;
     }
+
+    /**
+     * Shows the playlist based on its name.
+     *
+     * @param name Name of the playlist.
+     * @return the playlist
+     */
+    public Playlist getPlaylistByName(String name) {
+       return playlists.get(name.toLowerCase());
+            }
+
 
     /**
      * Returns the currently selected playlist.

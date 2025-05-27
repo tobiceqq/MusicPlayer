@@ -12,7 +12,7 @@ public class Exit implements Command {
      */
     @Override
     public String execute() {
-        return "\uD83D\uDC4B Exiting the music player...";
+        return "\uD83D\uDC4B Exiting the music player... Goodbye!";
     }
 
     /**

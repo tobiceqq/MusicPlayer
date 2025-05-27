@@ -9,12 +9,14 @@ import java.util.List;
 public class Playlist {
 
     private String name;
+    private String artist;
     private List<Song> songs;
     private PlayMode playMode = PlayMode.NORMAL;
     private int currentSongIndex = 0;
 
-    public Playlist(String name) {
+    public Playlist(String name, String artist) {
         this.name = name;
+        this.artist = artist;
         this.songs = new ArrayList<>();
     }
 

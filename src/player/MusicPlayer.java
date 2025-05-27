@@ -28,7 +28,7 @@ public class MusicPlayer {
         System.out.println("Type 'help' to see available commands.\n");
 
         while (true) {
-            System.out.println("\uD83C\uDFA7 > ");
+            System.out.print("\uD83C\uDFA7 > ");
             String input = scanner.nextLine().trim();
 
             try {
@@ -40,6 +40,5 @@ public class MusicPlayer {
                 System.out.println(e.getMessage());
             }
         }
-        System.out.println("\uD83D\uDC4B Goodbye!");
     }
 }

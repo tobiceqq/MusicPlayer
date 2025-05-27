@@ -10,8 +10,6 @@ import java.nio.file.Paths;
  */
 public class Help implements Command {
 
-    private static final String HELP_FILE_PATH = "/files/help.txt";
-
 
     /**
      * Executes the help command by reading the help file content.
@@ -21,7 +19,7 @@ public class Help implements Command {
     @Override
     public String execute() {
         try {
-            Path path = Paths.get(HELP_FILE_PATH);
+            Path path = Paths.get("src/files/help.txt");
             return Files.readString(path);
         } catch (IOException e) {
             return "\uD83D\uDEAB Help information is currently unavailable.";

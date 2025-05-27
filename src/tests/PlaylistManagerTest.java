@@ -10,7 +10,7 @@ class PlaylistManagerTest {
     @Test
     void testCreateAndGetPlaylist() {
         PlaylistManager manager = new PlaylistManager();
-        manager.createPlaylist("UTOPIA");
+        manager.createPlaylist("UTOPIA" , "Travis Scott");
 
         Playlist playlist = manager.getPlaylist("UTOPIA");
         assertNotNull(playlist, "Playlist 'UTOPIA' should exist after being created");
@@ -20,7 +20,7 @@ class PlaylistManagerTest {
     @Test
     void testRemovePlaylist() {
         PlaylistManager manager = new PlaylistManager();
-        manager.createPlaylist("MUSIC");
+        manager.createPlaylist("MUSIC" , "Playboi Carti");
         manager.removePlaylist("MUSIC");
 
         Playlist playlist = manager.getPlaylist("MUSIC");
@@ -30,7 +30,7 @@ class PlaylistManagerTest {
     @Test
     void testSelectPlaylist() {
         PlaylistManager manager = new PlaylistManager();
-        manager.createPlaylist("More Chaos");
+        manager.createPlaylist("More Chaos" , "Ken Carson");
 
         boolean selected = manager.selectPlaylist("More Chaos");
         assertTrue(selected, "Should successfully select existing playlist");
@@ -54,7 +54,7 @@ class PlaylistManagerTest {
         PlaylistManager manager = new PlaylistManager();
         assertFalse(manager.hasCurrentPlaylist(), "Should have no current playlist initially");
 
-        manager.createPlaylist("2093");
+        manager.createPlaylist("2093" , "Yeat");
         manager.selectPlaylist("2093");
         assertTrue(manager.hasCurrentPlaylist(), "Should have current playlist after selection");
     }
