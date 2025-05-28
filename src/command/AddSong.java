@@ -4,6 +4,12 @@ import playlist.PlaylistManager;
 import utils.InputValidator;
 import model.Song;
 
+import javax.sound.sampled.AudioFormat;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.UnsupportedAudioFileException;
+import java.io.File;
+import java.io.IOException;
 import java.util.Scanner;
 
 /**
@@ -33,28 +39,42 @@ public class AddSong implements Command {
             return "❌ No playlist selected. Use 'select' or 'create' to choose a playlist first.";
         }
 
+        // 1. soubor
+        System.out.println("\uD83D\uDCBE Enter full path to .wav file: ");
+        String filePath = scanner.nextLine().trim();
+
+        File file = new File(filePath);
+        if (!file.exists() || !file.isFile()) {
+            return "❌ File not found: " + filePath;
+        }
+
+        // 2. nazev
         System.out.println("\uD83C\uDFB5 Enter song title: ");
         String title = scanner.nextLine().trim();
-        if (InputValidator.isNullOrEmpty(title)) {
+        if (title.isEmpty()) {
             return "⚠\uFE0F Title cannot be empty.";
         }
 
+        // 3. interpret
         System.out.println("\uD83D\uDC64 Enter artist name: ");
         String artist = scanner.nextLine().trim();
-        if (InputValidator.isNullOrEmpty(artist)) {
+        if (artist.isEmpty()) {
             return "⚠\uFE0F Artist name cannot be empty.";
         }
 
-        System.out.println("⏱\uFE0F Enter duration in seconds: ");
-        String durationInput = scanner.nextLine().trim();
-        if (InputValidator.isValidInteger(durationInput)) {
-            return "⚠\uFE0F Invalid duration.";
+        int durationInSeconds;
+        try {
+            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(file);
+            AudioFormat format = audioInputStream.getFormat();
+            long frames = audioInputStream.getFrameLength();
+            durationInSeconds = (int) (frames / format.getFrameRate());
+        } catch (UnsupportedAudioFileException | IOException e) {
+            return "❌ Unable to read audio file: " + e.getMessage();
         }
 
-        int duration = Integer.parseInt(durationInput);
-        Song newSong = new Song(title, artist, duration , "");   // DODELAT
-        playlistManager.getCurrentPlaylist().addSong(newSong);
+        Song newSong = new Song(title, artist, durationInSeconds, filePath);
 
+        playlistManager.getCurrentPlaylist().addSong(newSong);
         return "✅ Song added: " + newSong;
     }
 

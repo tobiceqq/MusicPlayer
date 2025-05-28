@@ -49,11 +49,18 @@ public class Stats implements Command {
 
         }
 
-        sb.append("____________________________________\n");
-        sb.append("Top 3 most played:\n");
+        sb.append("\nTop 3 most played:\n");
         for (int i = 0; i < top3.size(); i++) {
             Song s = top3.get(i);
             sb.append(String.format("%d. %s – %s (%dx)\n" , i + 1 , s.getTitle(), s.getArtist() , s.getPlayCount()));
+        }
+
+        sb.append("\nAll songs in playlist:\n");
+        List<Song> allSongs = playlistManager.getCurrentPlaylist().getSongs();
+        for (int i = 0; i < allSongs.size(); i++) {
+            Song s = allSongs.get(i);
+            sb.append(i + 1).append(". ").append(s.getTitle()).append(" - ").append(s.getArtist()).append(" [")
+               .append(String.format("%d:%02d", s.getDurationInSeconds() / 60, s.getDurationInSeconds() % 60)).append("]\n");
         }
 
         return sb.toString().strip();

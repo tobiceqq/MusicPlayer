@@ -70,7 +70,7 @@ public class Next implements Command {
         Song songToPlay = songs.get(nextIndex);
         songToPlay.incrementPlayCount();
 
-        return "▶\uFE0F Now playing: " + songToPlay;
+        return "▶\uFE0F Now playing: " + audioPlayer.play(songToPlay);
     }
 
     /**

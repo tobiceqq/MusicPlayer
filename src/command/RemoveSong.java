@@ -1,8 +1,8 @@
 package command;
 
-import audio.AudioPlayer;
 import model.Song;
 import playlist.PlaylistManager;
+import model.Playlist;
 
 import java.util.Iterator;
 import java.util.List;
@@ -31,7 +31,8 @@ public class RemoveSong implements Command{
             return "❌ No playlist selected.";
         }
 
-        List<Song> songs = playlistManager.getCurrentPlaylist().getSongs();
+        Playlist playlist = playlistManager.getCurrentPlaylist();
+        List<Song> songs = playlist.getSongs();
         if (songs.isEmpty()) {
             return "\uD83D\uDCED Playlist is empty.";
         }
@@ -46,17 +47,22 @@ public class RemoveSong implements Command{
             if (song.getTitle().equalsIgnoreCase(title)) {
                 iterator.remove();
 
-                int currentIndex = playlistManager.getCurrentPlaylist().getCurrentSongIndex();
+                int currentIndex = playlist.getCurrentSongIndex();
                 if (index < currentIndex) {
-                    playlistManager.getCurrentPlaylist().setCurrentSongIndex(currentIndex - 1);
-                } else if (index == currentIndex && currentIndex >= songs.size()) {
-                    playlistManager.getCurrentPlaylist().setCurrentSongIndex(Math.max(0, songs.size() -1));
+                    playlist.setCurrentSongIndex(currentIndex - 1);
+                } else if (index == currentIndex) {
+                    if (currentIndex >= songs.size()) {
+                        playlist.setCurrentSongIndex(Math.max(0, songs.size() - 1));
+                    }
                 }
 
-                return "\uD83D\uDDD1\uFE0F Song" + song.getTitle() + " has been removed from the playlist.";
+                return "\uD83D\uDDD1\uFE0F Song " + song.getTitle() + " has been removed from the playlist.";
+
             }
             index++;
+
         }
+
         return "⚠\uFE0F Song not found in the playlist.";
     }
 

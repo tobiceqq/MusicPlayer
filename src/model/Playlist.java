@@ -1,6 +1,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -30,13 +31,19 @@ public class Playlist {
     }
 
     /**
-     * Removes a song from the playlist.
-     *
-     * @param song the song to remove
-     * @return true if the song was removed, false otherwise
+     * Removes the song based on its title.
+     * @param title name of the song
+     * @return true if it removes, false otherwise
      */
-    public boolean removeSong(Song song) {
-        return songs.remove(song);
+    public boolean removeSongByTitle(String title) {
+        for (Iterator<Song> iterator = songs.iterator(); iterator.hasNext();) {
+            Song song = iterator.next();
+            if (song.getTitle().equalsIgnoreCase(title)) {
+                iterator.remove();
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -45,7 +52,7 @@ public class Playlist {
      * @return the list of songs.
      */
     public List<Song> getSongs() {
-        return new ArrayList<>(songs);
+        return songs;
     }
 
     /**

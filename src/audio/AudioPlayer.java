@@ -16,6 +16,7 @@ public class AudioPlayer {
 
     private Clip clip;
     private Long pausedPosition = 0L;
+    private Song currentlyPlayingSong;
 
     /**
      * Plays the audio file from the beginning.
@@ -24,6 +25,14 @@ public class AudioPlayer {
      * @return a message indicating success or error
      */
     public String play(Song song) {
+
+        if (clip != null && currentlyPlayingSong == song && pausedPosition > 0) {
+            clip.setMicrosecondPosition(pausedPosition);
+            clip.start();
+            pausedPosition = 0L;
+            return "▶\uFE0F Resuming: " + song.getTitle();
+        }
+
         stop();
 
         try {
@@ -36,6 +45,10 @@ public class AudioPlayer {
             clip = AudioSystem.getClip();
             clip.open(audioStream);
             clip.start();
+
+            currentlyPlayingSong = song;
+            pausedPosition = 0L;
+
             return "▶\uFE0F Now playing: " + song.getTitle();
 
         } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
