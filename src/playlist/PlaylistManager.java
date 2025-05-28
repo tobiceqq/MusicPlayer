@@ -86,4 +86,5 @@ public class PlaylistManager {
     public boolean hasCurrentPlaylist() {
         return currentPlaylist != null;
     }
+
 }

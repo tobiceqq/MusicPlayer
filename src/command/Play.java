@@ -35,7 +35,7 @@ public class Play implements Command {
         int index = playlistManager.getCurrentPlaylist().getCurrentSongIndex();
         Song currentSong = playlistManager.getCurrentPlaylist().getSongs().get(index);
 
-        return audioPlayer.play(currentSong.getFilePath());
+        return audioPlayer.play(currentSong);
     }
 
     /**

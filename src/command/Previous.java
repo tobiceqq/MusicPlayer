@@ -64,7 +64,7 @@ public class Previous implements Command {
         Song songToPlay = songs.get(previousIndex);
         songToPlay.incrementPlayCount();
 
-        return audioPlayer.play(songToPlay.getFilePath());
+        return audioPlayer.play(songToPlay);
     }
 
     private int findPreviousFavorite(List<Song> songs , int fromIndex) {

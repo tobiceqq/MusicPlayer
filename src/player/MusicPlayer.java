@@ -3,6 +3,7 @@ package player;
 import audio.AudioPlayer;
 import command.CommandExecutor;
 import exceptions.InvalidCommandException;
+import playlist.PlaylistLoader;
 import playlist.PlaylistManager;
 
 import java.util.Scanner;
@@ -20,8 +21,13 @@ public class MusicPlayer {
         this.playlistManager = new PlaylistManager();
         this.audioPlayer = new AudioPlayer();
         this.commandExecutor = new CommandExecutor(playlistManager, audioPlayer);
+
+        PlaylistLoader.loadPlaylists(playlistManager);
     }
 
+    /**
+     * Runs the whole Music Player
+     */
     public void run() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("\uD83C\uDFB5 Welcome to KYTE Music Player!");

@@ -8,6 +8,7 @@ import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.Collections;
+import model.Song;
 
 import model.Playlist;
 
@@ -19,23 +20,23 @@ public class AudioPlayer {
     /**
      * Plays the audio file from the beginning.
      *
-     * @param filePath the path to the .wav audio file
+     * @param song the song to be played
      * @return a message indicating success or error
      */
-    public String play(String filePath) {
+    public String play(Song song) {
         stop();
 
         try {
-            File audioFile = new File(filePath);
+            File audioFile = new File(song.getFilePath());
             if (!audioFile.exists()) {
-                return "❌ File not found: " + filePath;
+                return "❌ File not found: " + song.getFilePath();
             }
 
             AudioInputStream audioStream = AudioSystem.getAudioInputStream(audioFile);
             clip = AudioSystem.getClip();
             clip.open(audioStream);
             clip.start();
-            return "▶\uFE0F Now playing: " + audioFile.getName();
+            return "▶\uFE0F Now playing: " + song.getTitle();
 
         } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
             return "❌ Error playing file: " + e.getMessage();
