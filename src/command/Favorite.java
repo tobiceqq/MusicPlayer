@@ -42,10 +42,16 @@ public class Favorite implements Command {
             return "⚠\uFE0F Song not found in current playlist.";
         }
 
-        song.setFavorite(!song.isFavorite());
-        return song.isFavorite()
-                ? "✅ '" + song.getTitle() + "' marked as favorite."
-                : "❎ '" + song.getTitle() + "' removed from favorites.";
+        boolean nowFavorite = !song.isFavorite();
+        song.setFavorite(nowFavorite);
+
+        if (nowFavorite) {
+            playlistManager.addFavoriteSong(song);
+            return "✅ '" + song.getTitle() + "' marked as favorite.";
+        } else {
+            playlistManager.getFavoritePlaylist().removeSong(song);
+            return "❎ '" + song.getTitle() + "' removed from favorites.";
+        }
     }
 
     /**

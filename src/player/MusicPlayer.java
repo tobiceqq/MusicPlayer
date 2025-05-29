@@ -38,6 +38,7 @@ public class MusicPlayer {
             String input = scanner.nextLine().trim();
 
             try {
+                System.out.println();
                 String output = commandExecutor.executeCommand(input);
                 System.out.println(output);
                 if (commandExecutor.shouldExit(input)) break;

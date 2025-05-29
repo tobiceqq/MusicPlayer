@@ -30,20 +30,8 @@ public class Playlist {
         songs.add(song);
     }
 
-    /**
-     * Removes the song based on its title.
-     * @param title name of the song
-     * @return true if it removes, false otherwise
-     */
-    public boolean removeSongByTitle(String title) {
-        for (Iterator<Song> iterator = songs.iterator(); iterator.hasNext();) {
-            Song song = iterator.next();
-            if (song.getTitle().equalsIgnoreCase(title)) {
-                iterator.remove();
-                return true;
-            }
-        }
-        return false;
+    public void removeSong(Song song) {
+        songs.remove(song);
     }
 
     /**

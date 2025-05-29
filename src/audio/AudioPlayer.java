@@ -123,17 +123,14 @@ public class AudioPlayer {
         return "⏩ Forwarded " + seconds + " seconds.";
     }
 
-    private double playbackSpeed = 1.0;
+
     private boolean isPlaying;
-    private Thread currentPlaybackThread;
 
-    public String setPlaybackSpeed(double speed) {
-        if (speed <= 0)
-            return "❌ Invalid speed.";
-        this.playbackSpeed = speed;
-        return "⏩ Playback speed set to " + speed + "x.";
-    }
-
+    /**
+     * Shuffles the currently using playlist.
+     * @param playlist the playlist to shuffle
+     * @return message about it being shuffled or error
+     */
     public String shuffle(Playlist playlist) {
         if (playlist.getSongs().isEmpty()) {
             return "\uD83D\uDCED Cannot shuffle an empty playlist.";
@@ -144,10 +141,6 @@ public class AudioPlayer {
         playlist.setPlayMode(PlayMode.SHUFFLE);
 
         return "\uD83D\uDD00 Playlist has been shuffled.";
-    }
-
-    public double getPlaybackSpeed() {
-        return playbackSpeed;
     }
 
     public boolean isPlaying() {

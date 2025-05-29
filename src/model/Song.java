@@ -50,6 +50,7 @@ public class Song {
         this.favorite = favorite;
     }
 
+
     @Override
     public String toString() {
         return String.format("%s – %s [%s]%s", artist, title, formatDuration(), favorite ? " ❤\uFE0F" : "");

@@ -1,6 +1,7 @@
 package playlist;
 
 import model.Playlist;
+import model.Song;
 
 import java.util.HashMap;
 import java.util.List;
@@ -12,11 +13,13 @@ import java.util.Map;
 public class PlaylistManager {
 
     private Map<String, Playlist> playlists;
-    private List<Playlist> playlists2;
     private Playlist currentPlaylist;
+    private final Playlist favoritePlaylist;
 
     public PlaylistManager() {
         this.playlists = new HashMap<>();
+        this.favoritePlaylist = new Playlist("Favorite", "");
+        playlists.put("favorite", favoritePlaylist);
     }
 
     /**
@@ -54,17 +57,6 @@ public class PlaylistManager {
     }
 
     /**
-     * Shows the playlist based on its name.
-     *
-     * @param name Name of the playlist.
-     * @return the playlist
-     */
-    public Playlist getPlaylistByName(String name) {
-       return playlists.get(name.toLowerCase());
-            }
-
-
-    /**
      * Returns the currently selected playlist.
      *
      * @return the current playlist
@@ -81,6 +73,21 @@ public class PlaylistManager {
      */
     public Playlist getPlaylist(String name) {
         return playlists.get(name.toLowerCase());
+    }
+
+    /**
+     * Gets the fav playlist that stores all liked songs.
+     *
+     * @return the favorite playlist
+     */
+    public Playlist getFavoritePlaylist() {
+        return favoritePlaylist;
+    }
+
+    public void addFavoriteSong(Song song) {
+        if (!favoritePlaylist.getSongs().contains(song)) {
+            favoritePlaylist.addSong(song);
+        }
     }
 
     public boolean hasCurrentPlaylist() {
