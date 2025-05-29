@@ -31,7 +31,7 @@ public class MusicPlayer {
      */
     public void run() {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("\uD83C\uDFB5 Welcome to " + ConsoleStyle.bold("KYTE") + " Music Player!");
+        System.out.println(ConsoleStyle.UNDERLINE + "\uD83C\uDFB5 Welcome to " + ConsoleStyle.BOLD + "KYTE" + ConsoleStyle.UNDERLINE + " Music Player!" + ConsoleStyle.RESET);
         System.out.println("Type " + ConsoleStyle.bold("help") + " to see available commands.\n");
 
         while (true) {

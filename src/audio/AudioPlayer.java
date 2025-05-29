@@ -13,6 +13,9 @@ import model.Song;
 import model.Playlist;
 import utils.ConsoleStyle;
 
+/**
+ * Handles playback logic for audio files in the music player.
+ */
 public class AudioPlayer {
 
     private Clip clip;
@@ -36,7 +39,7 @@ public class AudioPlayer {
             clip.setMicrosecondPosition(pausedPosition);
             clip.start();
             pausedPosition = 0L;
-            return "▶\uFE0F Resuming: " + ConsoleStyle.bold(song.getTitle());
+            return ConsoleStyle.color("▶\uFE0F Resuming: ", ConsoleStyle.CYAN) + ConsoleStyle.bold(song.getTitle());
         }
 
         stop();
@@ -44,7 +47,7 @@ public class AudioPlayer {
         try {
             File audioFile = new File(song.getFilePath());
             if (!audioFile.exists()) {
-                return "❌ File not found: " + ConsoleStyle.bold(song.getFilePath());
+                return ConsoleStyle.color("❌ File not found: ", ConsoleStyle.RED) + ConsoleStyle.bold(song.getFilePath());
             }
 
             AudioInputStream audioStream = AudioSystem.getAudioInputStream(audioFile);
@@ -106,7 +109,7 @@ public class AudioPlayer {
             pausedPosition = 0L;
             return ConsoleStyle.color("⏸\uFE0F Playback paused." , ConsoleStyle.CYAN);
         }
-        return "⚠\uFE0F Nothing was playing.";
+        return ConsoleStyle.color("⚠\uFE0F Nothing was playing.", ConsoleStyle.YELLOW);
     }
 
     /**
@@ -117,7 +120,7 @@ public class AudioPlayer {
      */
     public String seekBackward(long seconds) {
         if (clip == null || !clip.isOpen()) {
-            return "❌ No audio loaded.";
+            return ConsoleStyle.color("❌ No audio loaded.", ConsoleStyle.RED);
         }
 
         long currentPosition = clip.getMicrosecondPosition();
@@ -135,7 +138,7 @@ public class AudioPlayer {
      */
     public String seekForward(long seconds) {
         if (clip == null || !clip.isOpen()) {
-            return "❌ No audio loaded.";
+            return ConsoleStyle.color("❌ No audio loaded.", ConsoleStyle.RED);
         }
 
         long currentPosition = clip.getMicrosecondPosition();
@@ -145,9 +148,6 @@ public class AudioPlayer {
 
         return "⏩ Forwarded " + seconds + " seconds.";
     }
-
-
-    private boolean isPlaying;
 
     /**
      * Shuffles the currently using playlist.
@@ -166,6 +166,10 @@ public class AudioPlayer {
         return "\uD83D\uDD00 Playlist has been shuffled.";
     }
 
+    /**
+     * Checks if a song is currently being played.
+     * @return true if clip is currently playing, false otherwise
+     */
     public boolean isPlaying() {
         return clip != null && clip.isRunning();
     }

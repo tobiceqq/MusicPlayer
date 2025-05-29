@@ -17,7 +17,7 @@ public class Stats implements Command {
     }
 
     /**
-     * Displays statistics for the selected playlist
+     * Displays statistics for the selected playlist.
      *
      * @return formated stats or error
      */

@@ -14,7 +14,7 @@ public class Exit implements Command {
      */
     @Override
     public String execute() {
-        return ConsoleStyle.bold("\uD83D\uDC4B Exiting the music player... Goodbye!");
+        return ConsoleStyle.bold("\uD83D\uDC4B Exiting KYTE.. Goodbye!");
     }
 
     /**

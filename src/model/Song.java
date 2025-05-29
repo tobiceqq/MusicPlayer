@@ -1,5 +1,8 @@
 package model;
 
+/**
+ * Class that represents a single audio track in the music player.
+ */
 public class Song {
 
     private final String title;

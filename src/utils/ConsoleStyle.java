@@ -2,6 +2,8 @@ package utils;
 
 /**
  * Provides ANSI color and styles codes for styled console output.
+ *
+ * @author https://www.youtube.com/watch?v=MERwLlyIJvs
  */
 public class ConsoleStyle {
 

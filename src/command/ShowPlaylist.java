@@ -7,7 +7,7 @@ import utils.ConsoleStyle;
 import java.util.List;
 
 /**
- * Displays tje contents of the current playlist.
+ * Displays the contents of the current playlist.
  */
 public class ShowPlaylist implements Command {
 

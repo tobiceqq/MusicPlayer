@@ -5,10 +5,10 @@ import playlist.PlaylistManager;
 import model.Playlist;
 
 import static org.junit.jupiter.api.Assertions.*;
-class PlaylistManagerTest {
+public class PlaylistManagerTest {
 
     @Test
-    void testCreateAndGetPlaylist() {
+    public void testCreateAndGetPlaylist() {
         PlaylistManager manager = new PlaylistManager();
         manager.createPlaylist("UTOPIA" , "Travis Scott");
 
@@ -18,7 +18,7 @@ class PlaylistManagerTest {
     }
 
     @Test
-    void testRemovePlaylist() {
+    public void testRemovePlaylist() {
         PlaylistManager manager = new PlaylistManager();
         manager.createPlaylist("MUSIC" , "Playboi Carti");
         manager.removePlaylist("MUSIC");
@@ -28,7 +28,7 @@ class PlaylistManagerTest {
     }
 
     @Test
-    void testSelectPlaylist() {
+    public void testSelectPlaylist() {
         PlaylistManager manager = new PlaylistManager();
         manager.createPlaylist("More Chaos" , "Ken Carson");
 
@@ -41,7 +41,7 @@ class PlaylistManagerTest {
     }
 
     @Test
-    void testSelectNonExistentPlaylist() {
+    public void testSelectNonExistentPlaylist() {
         PlaylistManager manager = new PlaylistManager();
 
         boolean selected = manager.selectPlaylist("NonExistent");
@@ -50,7 +50,7 @@ class PlaylistManagerTest {
     }
 
     @Test
-    void testHasCurrentPlaylist() {
+    public void testHasCurrentPlaylist() {
         PlaylistManager manager = new PlaylistManager();
         assertFalse(manager.hasCurrentPlaylist(), "Should have no current playlist initially");
 

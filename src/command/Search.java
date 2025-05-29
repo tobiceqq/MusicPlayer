@@ -12,7 +12,7 @@ import java.util.regex.PatternSyntaxException;
 import java.util.stream.Collectors;
 
 /**
- * Searches for songs in the current playlist usinga regex pattern.
+ * Searches for songs in the current playlist using a regex pattern.
  */
 public class Search implements Command{
 

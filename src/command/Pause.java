@@ -4,6 +4,9 @@ import audio.AudioPlayer;
 import playlist.PlaylistManager;
 import utils.ConsoleStyle;
 
+/**
+ * Pauses the currently playing song.
+ */
 public class Pause implements Command {
 
     private final PlaylistManager playlistManager;

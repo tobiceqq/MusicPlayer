@@ -5,10 +5,10 @@ import utils.InputValidator;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class InputValidatorTest {
+public class InputValidatorTest {
 
     @Test
-    void testIsNullOrEmpty() {
+    public void testIsNullOrEmpty() {
         assertTrue(InputValidator.isNullOrEmpty(null), "Null should be considered empty");
         assertTrue(InputValidator.isNullOrEmpty(""), "Empty string should be considered empty");
         assertTrue(InputValidator.isNullOrEmpty("   "), "Whitespace should be considered empty");
@@ -16,7 +16,7 @@ class InputValidatorTest {
     }
 
     @Test
-    void testIsValidInteger() {
+    public void testIsValidInteger() {
         assertTrue(InputValidator.isValidInteger("123"), "Valid integer string should pass");
         assertTrue(InputValidator.isValidInteger("-456"), "Valid negative integer string should pass");
         assertFalse(InputValidator.isValidInteger("abc"), "Non-integer string should fail");
@@ -25,7 +25,7 @@ class InputValidatorTest {
     }
 
     @Test
-    void testMatchesRegex() {
+    public void testMatchesRegex() {
         String regex = "\\d{3}";
 
         assertTrue(InputValidator.matchesRegex("123", regex), "String '123' should match");

@@ -10,46 +10,46 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 
-class CommandExecutorTest {
+public class CommandExecutorTest {
 
     private CommandExecutor executor;
 
     @BeforeEach
-    void setUp() {
+    public void setUp() {
         PlaylistManager playlistManager = new PlaylistManager();
         AudioPlayer audioPlayer = new AudioPlayer(playlistManager);
         executor = new CommandExecutor(playlistManager, audioPlayer);
     }
 
     @Test
-    void testHelpCommandText() throws InvalidCommandException {
+    public void testHelpCommandText() throws InvalidCommandException {
         String result = executor.executeCommand("help");
         assertNotNull(result);
         assertFalse(result.isEmpty());
     }
 
     @Test
-    void testHelpCommandByNumber() throws InvalidCommandException {
+    public void testHelpCommandByNumber() throws InvalidCommandException {
         String result = executor.executeCommand("16");
         assertNotNull(result);
         assertFalse(result.isEmpty());
    }
 
    @Test
-    void testUnknownCommandThrowsException() {
+   public void testUnknownCommandThrowsException() {
         assertThrows(InvalidCommandException.class, () -> {
             executor.executeCommand("doesn't exist");
         });
    }
 
    @Test
-    void testShouldExitTrue() {
+   public void testShouldExitTrue() {
         assertTrue(executor.shouldExit("exit"));
         assertTrue(executor.shouldExit("17"));
    }
 
    @Test
-    void testShouldExitFalse() {
+   public void testShouldExitFalse() {
         assertFalse(executor.shouldExit("help"));
         assertFalse(executor.shouldExit("16"));
    }

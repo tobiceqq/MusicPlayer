@@ -9,6 +9,9 @@ import utils.ConsoleStyle;
 
 import java.util.List;
 
+/**
+ * Shuffles songs in the current playlist.
+ */
 public class Shuffle implements Command {
 
     private final PlaylistManager playlistManager;

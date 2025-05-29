@@ -4,6 +4,9 @@ import model.PlayMode;
 import playlist.PlaylistManager;
 import utils.ConsoleStyle;
 
+/**
+ * Command that sets the current playlist back to normal.
+ */
 public class NormalMode implements Command {
 
     private final PlaylistManager playlistManager;
