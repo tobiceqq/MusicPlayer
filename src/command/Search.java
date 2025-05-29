@@ -2,7 +2,9 @@ package command;
 
 import model.Song;
 import playlist.PlaylistManager;
+import utils.ConsoleStyle;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 import java.util.regex.Pattern;
@@ -29,31 +31,31 @@ public class Search implements Command{
      */
     public String execute() {
         if (!playlistManager.hasCurrentPlaylist()) {
-            return "❌ No playlist selected.";
+            return ConsoleStyle.color("❌ No playlist selected." , ConsoleStyle.RED);
         }
 
         List<Song> songs = playlistManager.getCurrentPlaylist().getSongs();
         if (songs.isEmpty()) {
-            return "\uD83D\uDCED Playlist is empty.";
+            return ConsoleStyle.color("\uD83D\uDCED Playlist is empty.", ConsoleStyle.BLUE);
         }
 
-        System.out.println("\uD83D\uDD0E Enter search term: ");
+        System.out.println(ConsoleStyle.bold("\uD83D\uDD0E Enter search term: "));
         String patternInput = scanner.nextLine().trim();
 
         Pattern pattern;
         try {
             pattern = Pattern.compile(patternInput, Pattern.CASE_INSENSITIVE);
         } catch (PatternSyntaxException e) {
-            return "⚠\uFE0F Invalid regex pattern";
+            return ConsoleStyle.color("⚠\uFE0F Invalid regex pattern" , ConsoleStyle.YELLOW);
         }
 
         List<Song> matches = songs.stream().filter(song -> pattern.matcher(song.getTitle()).find() ||
                 pattern.matcher(song.getArtist()).find()).collect(Collectors.toList());
         if (matches.isEmpty()) {
-            return "\uD83D\uDD0D Not found.";
+            return ConsoleStyle.color("\uD83D\uDD0D Not found." , ConsoleStyle.CYAN);
         }
 
-        StringBuilder result = new StringBuilder("✅ Found songs:\n");
+        StringBuilder result = new StringBuilder(ConsoleStyle.color("✅ Found songs:\n" , ConsoleStyle.GREEN));
         for (Song song : matches) {
             result.append("• ").append(song).append("\n");
         }

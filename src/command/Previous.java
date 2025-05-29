@@ -4,6 +4,7 @@ import audio.AudioPlayer;
 import model.PlayMode;
 import model.Song;
 import playlist.PlaylistManager;
+import utils.ConsoleStyle;
 
 import java.util.List;
 
@@ -27,12 +28,12 @@ public class Previous implements Command {
      */
     public String execute() {
         if (!playlistManager.hasCurrentPlaylist()) {
-            return "❌ No playlist selected.";
+            return ConsoleStyle.color("❌ No playlist selected." , ConsoleStyle.RED);
         }
 
         List<Song> songs = playlistManager.getCurrentPlaylist().getSongs();
         if (songs.isEmpty()) {
-        return "\uD83D\uDCED Playlist is empty.";
+            return ConsoleStyle.color("\uD83D\uDCED Playlist is empty.", ConsoleStyle.BLUE);
         }
 
         int currentIndex = playlistManager.getCurrentPlaylist().getCurrentSongIndex();

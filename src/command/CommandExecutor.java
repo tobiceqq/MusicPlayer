@@ -89,6 +89,9 @@ public class CommandExecutor {
         commandMap.put("createplaylist", new CreatePlaylist(playlistManager, scanner));
         commandMap.put("19", new CreatePlaylist(playlistManager, scanner));
 
+        commandMap.put("stop", new Stop(playlistManager, audioPlayer));
+        commandMap.put("20", new Stop(playlistManager, audioPlayer));
+
 
     }
 

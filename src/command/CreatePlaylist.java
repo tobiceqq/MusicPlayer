@@ -1,6 +1,7 @@
 package command;
 
 import playlist.PlaylistManager;
+import utils.ConsoleStyle;
 
 import java.util.Scanner;
 
@@ -28,18 +29,18 @@ public class CreatePlaylist implements Command {
         String name = scanner.nextLine().trim();
 
         if (name.isEmpty()) {
-            return "❌ Playlist name can't be empty.";
+            return ConsoleStyle.color("❌ Playlist name can't be empty." , ConsoleStyle.RED);
         }
 
         System.out.println("\uD83C\uDFA4 Enter artist name (optional): ");
         String artist = scanner.nextLine().trim();
 
         if (playlistManager.getPlaylist(name) != null) {
-            return "⚠\uFE0F Playlist with this name already exists.";
+            return ConsoleStyle.color("⚠\uFE0F Playlist with this name already exists." , ConsoleStyle.YELLOW);
         }
 
         playlistManager.createPlaylist(name, artist);
-        return "✅ Playlist \"" + name + "\" was successfully created!";
+        return ConsoleStyle.color("✅ Playlist \"" + name + "\" was successfully created!" , ConsoleStyle.GREEN);
     }
 
     /**

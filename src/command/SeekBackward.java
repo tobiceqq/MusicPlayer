@@ -2,6 +2,7 @@ package command;
 
 import audio.AudioPlayer;
 import playlist.PlaylistManager;
+import utils.ConsoleStyle;
 
 /**
  * Rewinds the currently playing song by a set number of seconds.
@@ -25,7 +26,7 @@ public class SeekBackward implements Command {
      */
     public String execute() {
         if (!playlistManager.hasCurrentPlaylist()) {
-            return "❌ No playlist selected.";
+            return ConsoleStyle.color("❌ No playlist selected." , ConsoleStyle.RED);
         }
 
         return audioPlayer.seekBackward(secondsToSeek);

@@ -1,5 +1,7 @@
 package command;
 
+import utils.ConsoleStyle;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -22,7 +24,7 @@ public class Help implements Command {
             Path path = Paths.get("src/files/help.txt");
             return Files.readString(path);
         } catch (IOException e) {
-            return "\uD83D\uDEAB Help information is currently unavailable.";
+            return ConsoleStyle.color("\uD83D\uDEAB Help information is currently unavailable." , ConsoleStyle.RED);
         }
     }
 

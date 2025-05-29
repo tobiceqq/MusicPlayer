@@ -4,6 +4,7 @@ import audio.AudioPlayer;
 import model.PlayMode;
 import model.Song;
 import playlist.PlaylistManager;
+import utils.ConsoleStyle;
 
 import java.util.List;
 import java.util.Random;
@@ -26,12 +27,12 @@ public class Next implements Command {
     @Override
     public String execute() {
         if (!playlistManager.hasCurrentPlaylist()) {
-            return "❌ No playlist selected.";
+            return ConsoleStyle.color("❌ No playlist selected." , ConsoleStyle.RED);
         }
 
         List<Song> songs = playlistManager.getCurrentPlaylist().getSongs();
         if (songs.isEmpty()) {
-            return "\uD83D\uDCED Playlist is empty";
+            return ConsoleStyle.color("\uD83D\uDCED Playlist is empty.", ConsoleStyle.BLUE);
         }
 
         int currentIndex = playlistManager.getCurrentPlaylist().getCurrentSongIndex();
@@ -42,7 +43,7 @@ public class Next implements Command {
             case NORMAL:
                 nextIndex++;
                 if (nextIndex >= songs.size()) {
-                    return "\uD83D\uDEAB End of playlist.";
+                    return ConsoleStyle.color("\uD83D\uDEAB End of playlist." , ConsoleStyle.YELLOW);
                 }
                 break;
 
@@ -61,7 +62,7 @@ public class Next implements Command {
             case FAVORITES:
                 nextIndex = findNextFavorite(songs, currentIndex);
                 if (nextIndex == -1) {
-                    return "\uD83D\uDEAB No more favorite songs.";
+                    return ConsoleStyle.color("\uD83D\uDEAB No more favorite songs." , ConsoleStyle.YELLOW);
                 }
                 break;
         }
@@ -70,7 +71,8 @@ public class Next implements Command {
         Song songToPlay = songs.get(nextIndex);
         songToPlay.incrementPlayCount();
 
-        return "▶\uFE0F Now playing: " + audioPlayer.play(songToPlay);
+        return ConsoleStyle.bold(audioPlayer.play(songToPlay));
+
     }
 
     /**

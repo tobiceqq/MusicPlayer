@@ -1,6 +1,7 @@
 package command;
 
 import playlist.PlaylistManager;
+import utils.ConsoleStyle;
 import utils.InputValidator;
 import model.Song;
 
@@ -36,7 +37,11 @@ public class AddSong implements Command {
     @Override
     public String execute() {
         if (!playlistManager.hasCurrentPlaylist()) {
-            return "❌ No playlist selected. Use 'select' or 'create' to choose a playlist first.";
+            return ConsoleStyle.RED + "❌ No playlist selected. Use "
+                    + ConsoleStyle.BOLD + "select" + ConsoleStyle.RESET + ConsoleStyle.RED + " or "
+                    + ConsoleStyle.BOLD + "create" + ConsoleStyle.RESET + ConsoleStyle.RED
+                    + " to choose a playlist first." + ConsoleStyle.RESET;
+
         }
 
         // 1. soubor

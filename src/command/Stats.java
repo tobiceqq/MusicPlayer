@@ -2,6 +2,7 @@ package command;
 
 import model.Song;
 import playlist.PlaylistManager;
+import utils.ConsoleStyle;
 
 import java.util.Comparator;
 import java.util.List;
@@ -22,12 +23,12 @@ public class Stats implements Command {
      */
     public String execute() {
         if (!playlistManager.hasCurrentPlaylist()) {
-            return "❌ No playlist selected.";
+            return ConsoleStyle.color("❌ No playlist selected." , ConsoleStyle.RED);
         }
 
         List<Song> songs = playlistManager.getCurrentPlaylist().getSongs();
         if (songs.isEmpty()) {
-            return "\uD83D\uDCED Playlist is empty.";
+            return ConsoleStyle.color("\uD83D\uDCED Playlist is empty.", ConsoleStyle.BLUE);
         }
 
         int totalSongs = songs.size();
@@ -38,24 +39,24 @@ public class Stats implements Command {
         List<Song> top3 = songs.stream().sorted(Comparator.comparingInt(Song::getPlayCount).reversed()).limit(3).collect(Collectors.toList());
 
         StringBuilder sb = new StringBuilder();
-        sb.append("\uD83D\uDCCA Playlist stats\n");
+        sb.append(ConsoleStyle.bold("\uD83D\uDCCA Playlist stats\n"));
         sb.append("____________________________________\n");
         sb.append("Total songs      : ").append(totalSongs).append("\n");
         sb.append("Total duration      : ").append(totalDuration / 60).append(":").append(String.format("%02d" , totalDuration % 60)).append("\n");
         sb.append("Favorites      : ").append(favoriteCount).append(" ❤\uFE0F\n");
 
         if (mostPlayed != null) {
-            sb.append("Most played      : ").append(mostPlayed.getTitle()).append(" - ").append(mostPlayed.getArtist()).append(" (").append(mostPlayed.getPlayCount()).append("x)\n");
+            sb.append(ConsoleStyle.bold("Most played      : ")).append(mostPlayed.getTitle()).append(" - ").append(mostPlayed.getArtist()).append(" (").append(mostPlayed.getPlayCount()).append("x)\n");
 
         }
 
-        sb.append("\nTop 3 most played:\n");
+        sb.append(ConsoleStyle.underline(ConsoleStyle.bold("\nTop 3 most played:\n")));
         for (int i = 0; i < top3.size(); i++) {
             Song s = top3.get(i);
             sb.append(String.format("%d. %s – %s (%dx)\n" , i + 1 , s.getTitle(), s.getArtist() , s.getPlayCount()));
         }
 
-        sb.append("\nAll songs in playlist:\n");
+        sb.append(ConsoleStyle.underline(ConsoleStyle.bold("\nAll songs in playlist:\n")));
         List<Song> allSongs = playlistManager.getCurrentPlaylist().getSongs();
         for (int i = 0; i < allSongs.size(); i++) {
             Song s = allSongs.get(i);

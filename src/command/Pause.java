@@ -2,6 +2,7 @@ package command;
 
 import audio.AudioPlayer;
 import playlist.PlaylistManager;
+import utils.ConsoleStyle;
 
 public class Pause implements Command {
 
@@ -21,7 +22,7 @@ public class Pause implements Command {
     @Override
     public String execute() {
         if (!playlistManager.hasCurrentPlaylist()) {
-            return "❌ No playlist selected.";
+            return ConsoleStyle.color("❌ No playlist selected." , ConsoleStyle.RED);
         }
 
         return audioPlayer.pause();

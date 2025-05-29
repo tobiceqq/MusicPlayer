@@ -2,6 +2,7 @@ package command;
 
 import model.Song;
 import playlist.PlaylistManager;
+import utils.ConsoleStyle;
 
 import java.util.List;
 
@@ -23,12 +24,12 @@ public class ShowPlaylist implements Command {
      */
     public String execute() {
         if (!playlistManager.hasCurrentPlaylist()) {
-            return "❌ No playlist selected.";
+            return ConsoleStyle.color("❌ No playlist selected." , ConsoleStyle.RED);
         }
 
         List<Song> songs = playlistManager.getCurrentPlaylist().getSongs();
         if (songs.isEmpty()) {
-            return "\uD83D\uDCED Playlist is empty.";
+            return ConsoleStyle.color("\uD83D\uDCED Playlist is empty.", ConsoleStyle.BLUE);
         }
 
         StringBuilder sb = new StringBuilder("\uD83D\uDCC3 Songs in playlist:\n");

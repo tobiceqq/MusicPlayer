@@ -1,40 +1,40 @@
 package command;
 
 import audio.AudioPlayer;
-import model.PlayMode;
-import model.Playlist;
-import model.Song;
 import playlist.PlaylistManager;
 import utils.ConsoleStyle;
 
-import java.util.List;
-
-public class Shuffle implements Command {
+/**
+ * Completely stops the current playback.
+ */
+public class Stop implements Command{
 
     private final PlaylistManager playlistManager;
     private final AudioPlayer audioPlayer;
 
-    public Shuffle(PlaylistManager playlistManager, AudioPlayer audioPlayer) {
+    public Stop(PlaylistManager playlistManager, AudioPlayer audioPlayer) {
         this.playlistManager = playlistManager;
         this.audioPlayer = audioPlayer;
     }
 
     /**
-     * Sets play mode to shuffle for the selected playlist.
+     * Stops the playback and resets the song position.
      *
-     * @return result message or error
+     * @return Message confirming the playback has been stopped.
      */
+    @Override
     public String execute() {
         if (!playlistManager.hasCurrentPlaylist()) {
             return ConsoleStyle.color("❌ No playlist selected." , ConsoleStyle.RED);
         }
 
-        List<Song> songs = playlistManager.getCurrentPlaylist().getSongs();
-        if (songs.isEmpty()) {
-            return ConsoleStyle.color("\uD83D\uDCED Playlist is empty.", ConsoleStyle.BLUE);
+        if (!audioPlayer.isPlaying()) {
+            return ConsoleStyle.color("⏹\uFE0F Nothing is currently playing." , ConsoleStyle.CYAN);
         }
 
-        return audioPlayer.shuffle(playlistManager.getCurrentPlaylist());
+        audioPlayer.stop();
+
+        return ConsoleStyle.color("⏹\uFE0F Playback stopped completely." , ConsoleStyle.GREEN);
     }
 
     /**

@@ -11,12 +11,18 @@ import java.util.Collections;
 import model.Song;
 
 import model.Playlist;
+import utils.ConsoleStyle;
 
 public class AudioPlayer {
 
     private Clip clip;
     private Long pausedPosition = 0L;
     private Song currentlyPlayingSong;
+    private final PlaylistManager playlistManager;
+
+    public AudioPlayer(PlaylistManager playlistManager) {
+        this.playlistManager = playlistManager;
+    }
 
     /**
      * Plays the audio file from the beginning.
@@ -30,7 +36,7 @@ public class AudioPlayer {
             clip.setMicrosecondPosition(pausedPosition);
             clip.start();
             pausedPosition = 0L;
-            return "▶\uFE0F Resuming: " + song.getTitle();
+            return "▶\uFE0F Resuming: " + ConsoleStyle.bold(song.getTitle());
         }
 
         stop();
@@ -38,7 +44,7 @@ public class AudioPlayer {
         try {
             File audioFile = new File(song.getFilePath());
             if (!audioFile.exists()) {
-                return "❌ File not found: " + song.getFilePath();
+                return "❌ File not found: " + ConsoleStyle.bold(song.getFilePath());
             }
 
             AudioInputStream audioStream = AudioSystem.getAudioInputStream(audioFile);
@@ -49,10 +55,27 @@ public class AudioPlayer {
             currentlyPlayingSong = song;
             pausedPosition = 0L;
 
-            return "▶\uFE0F Now playing: " + song.getTitle();
+            clip.addLineListener(event -> {
+                if (event.getType() == LineEvent.Type.STOP && clip.getMicrosecondPosition() >= clip.getMicrosecondLength()) {
+                    clip.close();
+
+                    Playlist currentPlaylist = playlistManager.getCurrentPlaylist();
+                    int currentIndex = currentPlaylist.getCurrentSongIndex();
+
+                    if (currentIndex + 1 < currentPlaylist.getSongs().size()) {
+                        currentPlaylist.setCurrentSongIndex(currentIndex + 1);
+
+                        Song nextSong = currentPlaylist.getSongs().get(currentIndex + 1);
+
+                        System.out.println(play(nextSong));
+                    }
+                }
+            });
+
+            return "▶\uFE0F Now playing: " + ConsoleStyle.bold(song.getTitle());
 
         } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
-            return "❌ Error playing file: " + e.getMessage();
+            return "❌ Error playing file: " + ConsoleStyle.bold(e.getMessage());
         }
     }
 
@@ -65,9 +88,9 @@ public class AudioPlayer {
         if (clip != null && clip.isRunning()) {
             pausedPosition = clip.getMicrosecondPosition();
             clip.stop();
-            return "⏸\uFE0F Playback paused.";
+            return ConsoleStyle.color("⏸\uFE0F Playback paused." , ConsoleStyle.CYAN);
         }
-        return "⚠\uFE0F Nothing is playing.";
+        return ConsoleStyle.color("⚠\uFE0F Nothing is playing." , ConsoleStyle.YELLOW);
     }
 
     /**
@@ -81,7 +104,7 @@ public class AudioPlayer {
             clip.close();
             clip = null;
             pausedPosition = 0L;
-            return "⏹\uFE0F Playback stopped.";
+            return ConsoleStyle.color("⏸\uFE0F Playback paused." , ConsoleStyle.CYAN);
         }
         return "⚠\uFE0F Nothing was playing.";
     }

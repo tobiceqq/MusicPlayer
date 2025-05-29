@@ -3,6 +3,7 @@ package command;
 import audio.AudioPlayer;
 import model.Song;
 import playlist.PlaylistManager;
+import utils.ConsoleStyle;
 
 /**
  * Plays the currently selected song in the active playlist.
@@ -25,11 +26,11 @@ public class Play implements Command {
     @Override
     public String execute() {
         if (!playlistManager.hasCurrentPlaylist()) {
-            return "❌ No playlist selected.";
+            return ConsoleStyle.color("❌ No playlist selected." , ConsoleStyle.RED);
         }
 
         if (playlistManager.getCurrentPlaylist().isEmpty()) {
-            return  "\uD83D\uDCED The playlist is empty.";
+            return ConsoleStyle.color("\uD83D\uDCED Playlist is empty.", ConsoleStyle.BLUE);
         }
 
         int index = playlistManager.getCurrentPlaylist().getCurrentSongIndex();

@@ -2,6 +2,7 @@ package command;
 
 import model.PlayMode;
 import playlist.PlaylistManager;
+import utils.ConsoleStyle;
 
 public class NormalMode implements Command {
 
@@ -19,11 +20,11 @@ public class NormalMode implements Command {
     @Override
     public String execute() {
         if (!playlistManager.hasCurrentPlaylist()) {
-            return "❌ No playlist selected.";
+            return ConsoleStyle.color("❌ No playlist selected." , ConsoleStyle.RED);
         }
 
         playlistManager.getCurrentPlaylist().setPlayMode(PlayMode.NORMAL);
-        return "▶\uFE0F Play mode set to NORMAL.";
+        return ConsoleStyle.color("▶\uFE0F Play mode set to " + ConsoleStyle.bold("normal") , ConsoleStyle.GREEN);
     }
 
     /**

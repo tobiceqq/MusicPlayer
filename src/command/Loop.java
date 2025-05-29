@@ -2,6 +2,7 @@ package command;
 
 import model.PlayMode;
 import playlist.PlaylistManager;
+import utils.ConsoleStyle;
 
 import java.util.Scanner;
 
@@ -28,21 +29,22 @@ public class Loop implements Command {
     @Override
     public String execute() {
         if (!playlistManager.hasCurrentPlaylist()) {
-            return "❌ No playlist selected.";
+            return ConsoleStyle.color("❌ No playlist selected." , ConsoleStyle.RED);
         }
 
-        System.out.println("\uD83D\uDD01 Type 'one' to loop current song or 'all' to loop the entire playlist: ");
+        System.out.println("\uD83D\uDD01 "  + ConsoleStyle.bold("Type ") + ConsoleStyle.underline("one") + ConsoleStyle.bold(" to loop current song or ") + ConsoleStyle.underline("all") + ConsoleStyle.bold(" to loop the entire playlist: "));
         String input = scanner.nextLine().trim().toLowerCase();
 
         switch (input) {
             case "one":
                 playlistManager.getCurrentPlaylist().setPlayMode(PlayMode.LOOP_ONE);
-                return "\uD83D\uDD01 Loop mode set to repeat current song.";
+                return ConsoleStyle.color("\uD83D\uDD01 Loop mode set to repeat " + ConsoleStyle.bold("current song") + "." , ConsoleStyle.GREEN);
             case "all":
                 playlistManager.getCurrentPlaylist().setPlayMode(PlayMode.LOOP_ALL);
-                return "\uD83D\uDD01 Loop mode set to repeat entire playlist.";
+                return ConsoleStyle.color("\uD83D\uDD01 Loop mode set to repeat " + ConsoleStyle.bold("entire playlist") + "." , ConsoleStyle.GREEN);
+
             default:
-                return "⚠\uFE0F Invalid input. Type 'one' or 'all'.";
+                return ConsoleStyle.color("⚠\uFE0F Invalid input. Type " + ConsoleStyle.underline("one") + " or " + ConsoleStyle.underline("all") + "." , ConsoleStyle.YELLOW);
         }
     }
 

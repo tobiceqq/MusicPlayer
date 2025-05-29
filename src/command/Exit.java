@@ -1,5 +1,7 @@
 package command;
 
+import utils.ConsoleStyle;
+
 /**
  * Command that exits the music player app.
  */
@@ -12,7 +14,7 @@ public class Exit implements Command {
      */
     @Override
     public String execute() {
-        return "\uD83D\uDC4B Exiting the music player... Goodbye!";
+        return ConsoleStyle.bold("\uD83D\uDC4B Exiting the music player... Goodbye!");
     }
 
     /**

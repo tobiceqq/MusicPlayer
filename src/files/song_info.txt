@@ -1,5 +1,0 @@
-🎧 Now playing: ${title}
-🎤 Artist: ${artist}
-⏱️ Length: ${length}
-💫 Played: ${length}
-❤️ Favorite: ${favorite}

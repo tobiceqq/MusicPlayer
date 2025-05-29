@@ -3,6 +3,7 @@ package command;
 import model.Song;
 import playlist.PlaylistManager;
 import model.Playlist;
+import utils.ConsoleStyle;
 
 import java.util.Iterator;
 import java.util.List;
@@ -28,13 +29,13 @@ public class RemoveSong implements Command{
      */
     public String execute() {
         if (!playlistManager.hasCurrentPlaylist()) {
-            return "❌ No playlist selected.";
+            return ConsoleStyle.color("❌ No playlist selected." , ConsoleStyle.RED);
         }
 
         Playlist playlist = playlistManager.getCurrentPlaylist();
         List<Song> songs = playlist.getSongs();
         if (songs.isEmpty()) {
-            return "\uD83D\uDCED Playlist is empty.";
+            return ConsoleStyle.color("\uD83D\uDCED Playlist is empty.", ConsoleStyle.BLUE);
         }
 
         System.out.println("\uD83D\uDD0D Enter the title of the song to remove: ");

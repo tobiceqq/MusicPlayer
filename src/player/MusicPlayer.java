@@ -5,6 +5,7 @@ import command.CommandExecutor;
 import exceptions.InvalidCommandException;
 import playlist.PlaylistLoader;
 import playlist.PlaylistManager;
+import utils.ConsoleStyle;
 
 import java.util.Scanner;
 
@@ -19,7 +20,7 @@ public class MusicPlayer {
 
     public MusicPlayer() {
         this.playlistManager = new PlaylistManager();
-        this.audioPlayer = new AudioPlayer();
+        this.audioPlayer = new AudioPlayer(playlistManager);
         this.commandExecutor = new CommandExecutor(playlistManager, audioPlayer);
 
         PlaylistLoader.loadPlaylists(playlistManager);
@@ -30,8 +31,8 @@ public class MusicPlayer {
      */
     public void run() {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("\uD83C\uDFB5 Welcome to KYTE Music Player!");
-        System.out.println("Type 'help' to see available commands.\n");
+        System.out.println("\uD83C\uDFB5 Welcome to " + ConsoleStyle.bold("KYTE") + " Music Player!");
+        System.out.println("Type " + ConsoleStyle.bold("help") + " to see available commands.\n");
 
         while (true) {
             System.out.print("\uD83C\uDFA7 > ");

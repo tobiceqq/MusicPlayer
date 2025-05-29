@@ -2,6 +2,7 @@ package command;
 
 import playlist.PlaylistManager;
 import model.Song;
+import utils.ConsoleStyle;
 
 import java.util.Scanner;
 
@@ -27,19 +28,19 @@ public class Favorite implements Command {
     @Override
     public String execute() {
         if (!playlistManager.hasCurrentPlaylist()) {
-            return "❌ No playlist selected.";
+            return ConsoleStyle.color("❌ No playlist selected." , ConsoleStyle.RED);
         }
 
         if (playlistManager.getCurrentPlaylist().getSongs().isEmpty()) {
-            return "\uD83D\uDCED Playlist is empty.";
+            return ConsoleStyle.color("\uD83D\uDCED Playlist is empty.", ConsoleStyle.BLUE);
         }
 
-        System.out.println("⭐ Enter the title of the song to (un)favorite: ");
+        System.out.println("⭐ " +  ConsoleStyle.bold("Enter the title of the song to (un)favorite: "));
         String title = scanner.nextLine().trim();
 
         Song song = playlistManager.getCurrentPlaylist().findSongByTitle(title);
         if (song == null) {
-            return "⚠\uFE0F Song not found in current playlist.";
+            return ConsoleStyle.color("⚠\uFE0F Song not found in current playlist." , ConsoleStyle.YELLOW);
         }
 
         boolean nowFavorite = !song.isFavorite();
@@ -47,10 +48,10 @@ public class Favorite implements Command {
 
         if (nowFavorite) {
             playlistManager.addFavoriteSong(song);
-            return "✅ '" + song.getTitle() + "' marked as favorite.";
+            return ConsoleStyle.color("✅ " + ConsoleStyle.bold(song.getTitle()) + " marked as favorite." , ConsoleStyle.GREEN);
         } else {
             playlistManager.getFavoritePlaylist().removeSong(song);
-            return "❎ '" + song.getTitle() + "' removed from favorites.";
+            return ConsoleStyle.color("❎ " + ConsoleStyle.bold(song.getTitle()) + " removed from favorites." , ConsoleStyle.GREEN);
         }
     }
 
